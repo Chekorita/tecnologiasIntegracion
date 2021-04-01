@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/calculadoraP" xmlns:tns="http://www.example.org/calculadoraP" elementFormDefault="qualified">
+    <element name="SumarRequest">
+        <complexType>
+            <sequence>
+                <element name="a" type="string"></element>
+                <element name="b" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="SumarResponse">
+        <complexType>
+            <sequence>
+                <element name="resultado" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="RestarRequest">
+        <complexType>
+            <sequence>
+                <element name="a" type="string"></element>
+                <element name="b" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="RestarResponse">
+        <complexType>
+            <sequence>
+                <element name="resultado" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="MultiplicarRequest">
+        <complexType>
+            <sequence>
+                <element name="a" type="string"></element>
+                <element name="b" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="MultiplicarResponse">
+        <complexType>
+            <sequence>
+                <element name="resultado" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="DividirRequest">
+        <complexType>
+            <sequence>
+                <element name="a" type="string"></element>
+                <element name="b" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="DividirResponse">
+        <complexType>
+            <sequence>
+                <element name="resultado" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="ExponenteRequest">
+        <complexType>
+            <sequence>
+                <element name="a" type="string"></element>
+                <element name="b" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="ExponenteResponse">
+        <complexType>
+            <sequence>
+                <element name="resultado" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="RaizCuaRequest">
+        <complexType>
+            <sequence>
+                <element name="a" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="RaizCuaResponse">
+        <complexType>
+            <sequence>
+                <element name="resultado" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="FormulaRequest">
+        <complexType>
+            <sequence>
+                <element name="a" type="string"></element>
+                <element name="b" type="string"></element>
+                <element name="c" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="FormulaResponse">
+        <complexType>
+            <sequence>
+                <element name="resultado1" type="string"></element>
+                <element name="resultado2" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
