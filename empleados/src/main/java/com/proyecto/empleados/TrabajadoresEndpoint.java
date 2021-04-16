@@ -32,23 +32,35 @@ public class TrabajadoresEndpoint {
     @ResponsePayload
     public RegistrarResponse RegistrarEmpleados(@RequestPayload RegistrarRequest peticion){
         RegistrarResponse respuesta = new RegistrarResponse();
-        Empleados empli = new Empleados();
-        empli.setApellidos(peticion.getApellidos());
-        empli.setCalle(peticion.getCalle());
-        empli.setCiudad(peticion.getCiudad());
-        empli.setColonia(peticion.getColonia());
-        empli.setEstado(peticion.getColonia());
-        empli.setNombre(peticion.getNombre());
-        empli.setNombreEmpresa(peticion.getNombreEmpresa());
-        empli.setNumCasa(peticion.getNumCasa());
-        empli.setNumCelular(peticion.getNumCelular());
-        empli.setNumSucursal(peticion.getNumSucursal());
-        empli.setPais(peticion.getPais());
-        empli.setPuesto(peticion.getPuesto());
-        empli.setSalario(peticion.getSalario());
-        isa.save(empli);
-        respuesta.setMensaje("Empleado guardado");;
+        if(camposVaciosRegistrar2(peticion)){
+            respuesta.setMensaje("Hay campos vacios");
+        }else{
+            Empleados empli = new Empleados();
+            empli.setApellidos(peticion.getApellidos());
+            empli.setCalle(peticion.getCalle());
+            empli.setCiudad(peticion.getCiudad());
+            empli.setColonia(peticion.getColonia());
+            empli.setEstado(peticion.getColonia());
+            empli.setNombre(peticion.getNombre());
+            empli.setNombreEmpresa(peticion.getNombreEmpresa());
+            empli.setNumCasa(peticion.getNumCasa());
+            empli.setNumCelular(peticion.getNumCelular());
+            empli.setNumSucursal(peticion.getNumSucursal());
+            empli.setPais(peticion.getPais());
+            empli.setPuesto(peticion.getPuesto());
+            empli.setSalario(peticion.getSalario());
+            isa.save(empli);
+            respuesta.setMensaje("Empleado guardado");
+        }
         return respuesta;
+    }
+
+    public boolean camposVaciosRegistrar2(RegistrarRequest empli){
+        return (empli.getCalle()==null || empli.getCiudad()==null || empli.getColonia()==null || 
+        empli.getEstado()==null || empli.getPais()==null || empli.getPuesto()==null || 
+        empli.getApellidos()==null || empli.getNombre()==null || empli.getNombreEmpresa()==null ||
+        empli.getNumCasa() == 0 || empli.getNumCelular() == 0 || empli.getNumSucursal() == 0 || 
+        empli.getSalario() == 0.0);
     }
     
     @PayloadRoot (namespace = "http://www.example.com/trabajadores", localPart = "ConsultarRequest")
@@ -163,19 +175,30 @@ public class TrabajadoresEndpoint {
     public ModificarResponse modificarEmpleados(@RequestPayload ModificarRequest peticion){
         ModificarResponse respuesta = new ModificarResponse();
         Empleados recuperado = isa.findByNombreEmpresaAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNombre(), peticion.getApellidos());
-        recuperado.setCalle(peticion.getCalle());
-        recuperado.setCiudad(peticion.getCiudad());
-        recuperado.setColonia(peticion.getColonia());
-        recuperado.setEstado(peticion.getEstado());
-        recuperado.setNumCasa(peticion.getNumCasa());
-        recuperado.setNumCelular(peticion.getNumCelular());
-        recuperado.setNumSucursal(peticion.getNumSucursal());
-        recuperado.setPais(peticion.getPais());
-        recuperado.setPuesto(peticion.getPuesto());
-        recuperado.setSalario(peticion.getSalario());
-        isa.save(recuperado);
-        respuesta.setMensaje("Ha sido modificado");
+        if(camposVaciosModificar2(peticion)){
+            respuesta.setMensaje("Hay campos vacios");
+        }else{
+            recuperado.setCalle(peticion.getCalle());
+            recuperado.setCiudad(peticion.getCiudad());
+            recuperado.setColonia(peticion.getColonia());
+            recuperado.setEstado(peticion.getEstado());
+            recuperado.setNumCasa(peticion.getNumCasa());
+            recuperado.setNumCelular(peticion.getNumCelular());
+            recuperado.setNumSucursal(peticion.getNumSucursal());
+            recuperado.setPais(peticion.getPais());
+            recuperado.setPuesto(peticion.getPuesto());
+            recuperado.setSalario(peticion.getSalario());
+            isa.save(recuperado);
+            respuesta.setMensaje("Ha sido modificado");
+        }
         return respuesta;
+    }
+    
+    public boolean camposVaciosModificar2(ModificarRequest empli){
+        return (empli.getCalle()==null || empli.getCiudad()==null || empli.getColonia()==null || 
+        empli.getEstado()==null || empli.getPais()==null || empli.getPuesto()==null ||
+        empli.getNumCasa()==0 || empli.getNumCelular()==0  || empli.getNumSucursal()==0 ||
+        empli.getSalario() == 0.0);
     }
 
     @PayloadRoot (namespace = "http://www.example.com/trabajadores", localPart = "EliminarQuiebraRequest")
@@ -187,7 +210,6 @@ public class TrabajadoresEndpoint {
         for(Empleados ls : iempleados){
             isa.delete(ls);
         }
-
         respuesta.setMensaje("Empleados de la sucursal eliminados");;
         return respuesta;
     }
@@ -198,8 +220,13 @@ public class TrabajadoresEndpoint {
     public EliminarIndividualResponse EliminarEmpleados(@RequestPayload EliminarIndividualRequest peticion){
         EliminarIndividualResponse respuesta = new EliminarIndividualResponse();
         Empleados elimi = isa.findByNombreEmpresaAndNumSucursalAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNumSucursal(), peticion.getNombre(), peticion.getApellidos());
-        isa.delete(elimi);
-        respuesta.setMensaje("Empleado eliminado");
+        if(elimi == null){
+            isa.delete(elimi);
+            respuesta.setMensaje("Empleado eliminado");
+        }else{
+            respuesta.setMensaje("El empleado no fue encontrado");
+        }
+        
         return respuesta;
     }
 }
