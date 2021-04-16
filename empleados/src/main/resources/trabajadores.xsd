@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/trabajadores" xmlns:tns="http://www.example.com/trabajadores" elementFormDefault="qualified">
+    <element name="ConsultarRequest">
+        <complexType>
+            <sequence>
+                <element name="nombreEmpresa" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="ConsultarResponse">
+        <complexType>
+            <sequence>
+                <element name="empleados" maxOccurs="unbounded">
+                    <complexType>
+                        <sequence>
+                            <element name="nombre" type="string"></element>
+                            <element name="apellidos" type="string"></element>
+                            <element name="numCelular" type="int"></element>
+                            <element name="calle" type="string"></element>
+                            <element name="numCasa" type="int"></element>
+                            <element name="colonia" type="string"></element>
+                            <element name="ciudad" type="string"></element>
+                            <element name="estado" type="string"></element>
+                            <element name="pais" type="string"></element>
+                            <element name="nombreEmpresa" type="string"></element>
+                            <element name="puesto" type="string"></element>
+                            <element name="salario" type="float"></element>
+                            <element name="numSucursal" type="int"></element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ConsultarSucursalRequest">
+        <complexType>
+            <sequence>
+                <element name="nombreEmpresa" type="string"></element>
+                <element name="numSucursal" type="int"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ConsultarSucursalResponse">
+        <complexType>
+            <sequence>
+                <element name="empleados" maxOccurs="unbounded">
+                    <complexType>
+                        <sequence>
+                            <element name="nombre" type="string"></element>
+                            <element name="apellidos" type="string"></element>
+                            <element name="numCelular" type="int"></element>
+                            <element name="calle" type="string"></element>
+                            <element name="numCasa" type="int"></element>
+                            <element name="colonia" type="string"></element>
+                            <element name="ciudad" type="string"></element>
+                            <element name="estado" type="string"></element>
+                            <element name="pais" type="string"></element>
+                            <element name="nombreEmpresa" type="string"></element>
+                            <element name="puesto" type="string"></element>
+                            <element name="salario" type="float"></element>
+                            <element name="numSucursal" type="int"></element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ConsultarPuestoRequest">
+        <complexType>
+            <sequence>
+                <element name="nombreEmpresa" type="string"></element>
+                <element name="numSucursal" type="int"></element>
+                <element name="puesto" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ConsultarPuestoResponse">
+        <complexType>
+            <sequence>
+                <element name="empleados" maxOccurs="unbounded">
+                    <complexType>
+                        <sequence>
+                            <element name="nombre" type="string"></element>
+                            <element name="apellidos" type="string"></element>
+                            <element name="numCelular" type="int"></element>
+                            <element name="calle" type="string"></element>
+                            <element name="numCasa" type="int"></element>
+                            <element name="colonia" type="string"></element>
+                            <element name="ciudad" type="string"></element>
+                            <element name="estado" type="string"></element>
+                            <element name="pais" type="string"></element>
+                            <element name="nombreEmpresa" type="string"></element>
+                            <element name="puesto" type="string"></element>
+                            <element name="salario" type="float"></element>
+                            <element name="numSucursal" type="int"></element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ConsultarNombreRequest">
+        <complexType>
+            <sequence>
+                <element name="nombreEmpresa" type="string"></element>
+                <element name="numSucursal" type="int"></element>
+                <element name="nombre" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ConsultarNombreResponse">
+        <complexType>
+            <sequence>
+                <element name="empleados" maxOccurs="unbounded">
+                    <complexType>
+                        <sequence>
+                            <element name="nombre" type="string"></element>
+                            <element name="apellidos" type="string"></element>
+                            <element name="numCelular" type="int"></element>
+                            <element name="calle" type="string"></element>
+                            <element name="numCasa" type="int"></element>
+                            <element name="colonia" type="string"></element>
+                            <element name="ciudad" type="string"></element>
+                            <element name="estado" type="string"></element>
+                            <element name="pais" type="string"></element>
+                            <element name="nombreEmpresa" type="string"></element>
+                            <element name="puesto" type="string"></element>
+                            <element name="salario" type="float"></element>
+                            <element name="numSucursal" type="int"></element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="RegistrarRequest">
+        <complexType>
+            <sequence>
+                <element name="nombre" type="string"></element>
+                <element name="apellidos" type="string"></element>
+                <element name="numCelular" type="int"></element>
+                <element name="calle" type="string"></element>
+                <element name="numCasa" type="int"></element>
+                <element name="colonia" type="string"></element>
+                <element name="ciudad" type="string"></element>
+                <element name="estado" type="string"></element>
+                <element name="pais" type="string"></element>
+                <element name="nombreEmpresa" type="string"></element>
+                <element name="puesto" type="string"></element>
+                <element name="salario" type="float"></element>
+                <element name="numSucursal" type="int"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="RegistrarResponse">
+        <complexType>
+            <sequence>
+                <element name="mensaje" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ModificarRequest">
+        <complexType>
+            <sequence>
+                <element name="nombre" type="string"></element>
+                <element name="apellidos" type="string"></element>
+                <element name="nombreEmpresa" type="string"></element>
+                <element name="numCelular" type="int"></element>
+                <element name="calle" type="string"></element>
+                <element name="numCasa" type="int"></element>
+                <element name="colonia" type="string"></element>
+                <element name="ciudad" type="string"></element>
+                <element name="estado" type="string"></element>
+                <element name="pais" type="string"></element>
+                <element name="puesto" type="string"></element>
+                <element name="salario" type="float"></element>
+                <element name="numSucursal" type="int"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="ModificarResponse">
+        <complexType>
+            <sequence>
+                <element name="mensaje" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="EliminarQuiebraRequest">
+        <complexType>
+            <sequence>
+                <element name="nombreEmpresa" type="string"></element>
+                <element name="numSucursal" type="int"></element>
+            </sequence>
+        </complexType>
+    </element>
+    
+    <element name="EliminarQuiebraResponse">
+        <complexType>
+            <sequence>
+                <element name="mensaje" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="EliminarIndividualRequest">
+        <complexType>
+            <sequence>
+                <element name="nombre" type="string"></element>
+                <element name="apellidos" type="string"></element>
+                <element name="numSucursal" type="int"></element>
+                <element name="nombreEmpresa" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="EliminarIndividualResponse">
+        <complexType>
+            <sequence>
+                <element name="mensaje" type="string"></element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
