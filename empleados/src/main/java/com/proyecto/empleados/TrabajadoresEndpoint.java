@@ -35,24 +35,36 @@ public class TrabajadoresEndpoint {
         if(camposVaciosRegistrar2(peticion)){
             respuesta.setMensaje("Hay campos vacios");
         }else{
-            Empleados empli = new Empleados();
-            empli.setApellidos(peticion.getApellidos());
-            empli.setCalle(peticion.getCalle());
-            empli.setCiudad(peticion.getCiudad());
-            empli.setColonia(peticion.getColonia());
-            empli.setEstado(peticion.getColonia());
-            empli.setNombre(peticion.getNombre());
-            empli.setNombreEmpresa(peticion.getNombreEmpresa());
-            empli.setNumCasa(peticion.getNumCasa());
-            empli.setNumCelular(peticion.getNumCelular());
-            empli.setNumSucursal(peticion.getNumSucursal());
-            empli.setPais(peticion.getPais());
-            empli.setPuesto(peticion.getPuesto());
-            empli.setSalario(peticion.getSalario());
-            isa.save(empli);
-            respuesta.setMensaje("Empleado guardado");
+            if(camposVaciosRegistrar(peticion)){
+                respuesta.setMensaje("Hay campos vacios");
+            }else{
+                Empleados empli = new Empleados();
+                empli.setApellidos(peticion.getApellidos());
+                empli.setCalle(peticion.getCalle());
+                empli.setCiudad(peticion.getCiudad());
+                empli.setColonia(peticion.getColonia());
+                empli.setEstado(peticion.getColonia());
+                empli.setNombre(peticion.getNombre());
+                empli.setNombreEmpresa(peticion.getNombreEmpresa());
+                empli.setNumCasa(peticion.getNumCasa());
+                empli.setNumCelular(peticion.getNumCelular());
+                empli.setNumSucursal(peticion.getNumSucursal());
+                empli.setPais(peticion.getPais());
+                empli.setPuesto(peticion.getPuesto());
+                empli.setSalario(peticion.getSalario());
+                isa.save(empli);
+                respuesta.setMensaje("Empleado guardado");
+            }
         }
         return respuesta;
+    }
+
+    public boolean camposVaciosRegistrar(RegistrarRequest empli){
+        return (empli.getCalle().isEmpty()|| empli.getCiudad().isEmpty() || empli.getColonia().isEmpty() || 
+        empli.getEstado().isEmpty() || empli.getPais().isEmpty() || empli.getPuesto().isEmpty() || 
+        empli.getApellidos().isEmpty() || empli.getNombre().isEmpty()|| empli.getNombreEmpresa().isEmpty() ||
+        empli.getNumCasa() == 0 || empli.getNumCelular() == 0 || empli.getNumSucursal() == 0 || 
+        empli.getSalario() == 0.0);
     }
 
     public boolean camposVaciosRegistrar2(RegistrarRequest empli){
@@ -87,6 +99,13 @@ public class TrabajadoresEndpoint {
             respuesta.getEmpleados().add(empli);
         }
         return respuesta;
+    }
+
+    public boolean camposvaciosconsultar1(ConsultarRequest empli){
+        return (empli.getNombreEmpresa()==null);
+    }
+    public boolean camposvaciosconsultar(ConsultarRequest empli){
+        return (empli.getNombreEmpresa()=="");
     }
 
     @PayloadRoot (namespace = "http://www.example.com/trabajadores", localPart = "ConsultarSucursalRequest")
@@ -174,26 +193,53 @@ public class TrabajadoresEndpoint {
     @ResponsePayload
     public ModificarResponse modificarEmpleados(@RequestPayload ModificarRequest peticion){
         ModificarResponse respuesta = new ModificarResponse();
-        Empleados recuperado = isa.findByNombreEmpresaAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNombre(), peticion.getApellidos());
-        if(camposVaciosModificar2(peticion)){
-            respuesta.setMensaje("Hay campos vacios");
+        if(camposimportantesModificar2(peticion)){
+            respuesta.setMensaje("Faltan datos de busqueda");
         }else{
-            recuperado.setCalle(peticion.getCalle());
-            recuperado.setCiudad(peticion.getCiudad());
-            recuperado.setColonia(peticion.getColonia());
-            recuperado.setEstado(peticion.getEstado());
-            recuperado.setNumCasa(peticion.getNumCasa());
-            recuperado.setNumCelular(peticion.getNumCelular());
-            recuperado.setNumSucursal(peticion.getNumSucursal());
-            recuperado.setPais(peticion.getPais());
-            recuperado.setPuesto(peticion.getPuesto());
-            recuperado.setSalario(peticion.getSalario());
-            isa.save(recuperado);
-            respuesta.setMensaje("Ha sido modificado");
+            if(camposImportantesModificar(peticion)){
+                respuesta.setMensaje("Faltan datos de busqueda");
+            }else{
+                Empleados recuperado = isa.findByNombreEmpresaAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNombre(), peticion.getApellidos());
+                if(camposVaciosModificar2(peticion)){
+                    respuesta.setMensaje("Hay campos vacios a modificar");
+                }else{
+                    if(camposVaciosModificar(peticion)){
+                        respuesta.setMensaje("Hay campos vacios a modificar");
+                    }else{
+                        recuperado.setCalle(peticion.getCalle());
+                        recuperado.setCiudad(peticion.getCiudad());
+                        recuperado.setColonia(peticion.getColonia());
+                        recuperado.setEstado(peticion.getEstado());
+                        recuperado.setNumCasa(peticion.getNumCasa());
+                        recuperado.setNumCelular(peticion.getNumCelular());
+                        recuperado.setNumSucursal(peticion.getNumSucursal());
+                        recuperado.setPais(peticion.getPais());
+                        recuperado.setPuesto(peticion.getPuesto());
+                        recuperado.setSalario(peticion.getSalario());
+                        isa.save(recuperado);
+                        respuesta.setMensaje("Ha sido modificado");
+                    }
+                }
+            }
         }
         return respuesta;
     }
     
+    public boolean camposImportantesModificar(ModificarRequest empli){
+        return (empli.getApellidos()=="" || empli.getNombre()=="" || empli.getNombreEmpresa()=="");
+    }
+
+    public boolean camposimportantesModificar2(ModificarRequest empli){
+        return (empli.getApellidos()==null || empli.getNombre()==null || empli.getNombreEmpresa()==null);
+    }
+    
+    public boolean camposVaciosModificar(ModificarRequest empli){
+        return (empli.getCalle().isEmpty() || empli.getCiudad().isEmpty() || empli.getColonia().isEmpty() || 
+        empli.getEstado().isEmpty() || empli.getPais().isEmpty() || empli.getPuesto().isEmpty() || 
+        empli.getNumCasa() == 0 || empli.getNumCelular() == 0 || empli.getNumSucursal() == 0 || 
+        empli.getSalario() == 0.0);
+    }
+
     public boolean camposVaciosModificar2(ModificarRequest empli){
         return (empli.getCalle()==null || empli.getCiudad()==null || empli.getColonia()==null || 
         empli.getEstado()==null || empli.getPais()==null || empli.getPuesto()==null ||
@@ -206,12 +252,27 @@ public class TrabajadoresEndpoint {
     @ResponsePayload
     public EliminarQuiebraResponse EliminarEmpleadosQuiebra(@RequestPayload EliminarQuiebraRequest peticion){
         EliminarQuiebraResponse respuesta = new EliminarQuiebraResponse();
-        Iterable<Empleados>iempleados = isa.findAllByNombreEmpresaAndNumSucursal(peticion.getNombreEmpresa(), peticion.getNumSucursal());
-        for(Empleados ls : iempleados){
-            isa.delete(ls);
+        if(camposvaciosEliminarQuiebra1(peticion)){
+            respuesta.setMensaje("Faltan campos para busqueda y eliminacion");
+        }else{
+            if(camposvaciosEliminarQuiebra(peticion)){
+                respuesta.setMensaje("Faltan campos para busqueda y eliminacion");
+            }else{
+                Iterable<Empleados>iempleados = isa.findAllByNombreEmpresaAndNumSucursal(peticion.getNombreEmpresa(), peticion.getNumSucursal());
+                for(Empleados ls : iempleados){
+                    isa.delete(ls);
+                }
+                respuesta.setMensaje("Empleados de la sucursal eliminados");
+            }
         }
-        respuesta.setMensaje("Empleados de la sucursal eliminados");;
         return respuesta;
+    }
+
+    public boolean camposvaciosEliminarQuiebra1(EliminarQuiebraRequest empli){
+        return (empli.getNombreEmpresa()==null || empli.getNumSucursal()==0);
+    }
+    public boolean camposvaciosEliminarQuiebra(EliminarQuiebraRequest empli){
+        return (empli.getNombreEmpresa()=="" || empli.getNumSucursal()==0);
     }
 
     @PayloadRoot (namespace = "http://www.example.com/trabajadores", localPart = "EliminarIndividualRequest")
@@ -219,14 +280,28 @@ public class TrabajadoresEndpoint {
     @ResponsePayload
     public EliminarIndividualResponse EliminarEmpleados(@RequestPayload EliminarIndividualRequest peticion){
         EliminarIndividualResponse respuesta = new EliminarIndividualResponse();
-        Empleados elimi = isa.findByNombreEmpresaAndNumSucursalAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNumSucursal(), peticion.getNombre(), peticion.getApellidos());
-        if(elimi == null){
-            isa.delete(elimi);
-            respuesta.setMensaje("Empleado eliminado");
+        if(camposvaciosEliminarIndi1(peticion)){
+            respuesta.setMensaje("Faltan campos para busqueda y eliminacion");
         }else{
-            respuesta.setMensaje("El empleado no fue encontrado");
+            if(camposvaciosEliminarIndi(peticion)){
+                respuesta.setMensaje("Faltan campos para busqueda y eliminacion");
+            }else{
+                Empleados elimi = isa.findByNombreEmpresaAndNumSucursalAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNumSucursal(), peticion.getNombre(), peticion.getApellidos());
+                if(elimi == null){
+                    isa.delete(elimi);
+                respuesta.setMensaje("Empleado eliminado");
+                }else{
+                    respuesta.setMensaje("El empleado no fue encontrado");
+                }
+            }
         }
-        
         return respuesta;
+    }
+
+    public boolean camposvaciosEliminarIndi1(EliminarIndividualRequest empli){
+        return (empli.getApellidos()==null || empli.getNombre()==null || empli.getNombreEmpresa()==null || empli.getNumSucursal()==0);
+    }
+    public boolean camposvaciosEliminarIndi(EliminarIndividualRequest empli){
+        return (empli.getApellidos()=="" || empli.getNombre()=="" || empli.getNombreEmpresa()=="" || empli.getNumSucursal()==0);
     }
 }
