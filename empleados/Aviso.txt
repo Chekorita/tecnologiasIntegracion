@@ -1,0 +1,1 @@
+Deben crear una base de datos que se llame "swtrabajadores"
