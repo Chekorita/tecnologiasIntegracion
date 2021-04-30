@@ -200,26 +200,31 @@ public class TrabajadoresEndpoint {
                 respuesta.setMensaje("Faltan datos de busqueda");
             }else{
                 Empleados recuperado = isa.findByNombreEmpresaAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNombre(), peticion.getApellidos());
-                if(camposVaciosModificar2(peticion)){
-                    respuesta.setMensaje("Hay campos vacios a modificar");
-                }else{
-                    if(camposVaciosModificar(peticion)){
+                if(recuperado != null){
+                    if(camposVaciosModificar2(peticion)){
                         respuesta.setMensaje("Hay campos vacios a modificar");
                     }else{
-                        recuperado.setCalle(peticion.getCalle());
-                        recuperado.setCiudad(peticion.getCiudad());
-                        recuperado.setColonia(peticion.getColonia());
-                        recuperado.setEstado(peticion.getEstado());
-                        recuperado.setNumCasa(peticion.getNumCasa());
-                        recuperado.setNumCelular(peticion.getNumCelular());
-                        recuperado.setNumSucursal(peticion.getNumSucursal());
-                        recuperado.setPais(peticion.getPais());
-                        recuperado.setPuesto(peticion.getPuesto());
-                        recuperado.setSalario(peticion.getSalario());
-                        isa.save(recuperado);
-                        respuesta.setMensaje("Ha sido modificado");
+                        if(camposVaciosModificar(peticion)){
+                            respuesta.setMensaje("Hay campos vacios a modificar");
+                        }else{
+                            recuperado.setCalle(peticion.getCalle());
+                            recuperado.setCiudad(peticion.getCiudad());
+                            recuperado.setColonia(peticion.getColonia());
+                            recuperado.setEstado(peticion.getEstado());
+                            recuperado.setNumCasa(peticion.getNumCasa());
+                            recuperado.setNumCelular(peticion.getNumCelular());
+                            recuperado.setNumSucursal(peticion.getNumSucursal());
+                            recuperado.setPais(peticion.getPais());
+                            recuperado.setPuesto(peticion.getPuesto());
+                            recuperado.setSalario(peticion.getSalario());
+                            isa.save(recuperado);
+                            respuesta.setMensaje("Ha sido modificado");
+                        }
                     }
+                }else{
+                    respuesta.setMensaje("El empleado no fue encontrado");
                 }
+                
             }
         }
         return respuesta;
@@ -287,7 +292,7 @@ public class TrabajadoresEndpoint {
                 respuesta.setMensaje("Faltan campos para busqueda y eliminacion");
             }else{
                 Empleados elimi = isa.findByNombreEmpresaAndNumSucursalAndNombreAndApellidos(peticion.getNombreEmpresa(), peticion.getNumSucursal(), peticion.getNombre(), peticion.getApellidos());
-                if(elimi == null){
+                if(elimi != null){
                     isa.delete(elimi);
                 respuesta.setMensaje("Empleado eliminado");
                 }else{
